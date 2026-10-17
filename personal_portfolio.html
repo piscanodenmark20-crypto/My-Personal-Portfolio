@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Personal Portfolio</title>
+  <style>
+    /* ===== GENERAL STYLES ===== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #7c3aed;
+      --secondary: #ec4899;
+      --dark: #1f1b2e;
+      --muted: #6b6478;
+      --light: #f8f6ff;
+      --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1100px, 90%); margin: 0 auto; }
+    section { padding: 80px 0; scroll-margin-top: 80px; }
+    .section-title { text-align: center; font-size: 2rem; margin-bottom: 12px; }
+    .section-title span { color: var(--primary); }
+    .section-intro { text-align: center; color: var(--muted); max-width: 650px; margin: 0 auto 35px; }
+    .btn {
+      display: inline-block; padding: 12px 22px; border-radius: 999px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: var(--white); font-weight: 700; border: 0; cursor: pointer;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 24px #7c3aed40; }
+    .card {
+      background: var(--white); padding: 25px; border-radius: 18px;
+      border: 1px solid #eee8ff; box-shadow: 0 8px 24px #31205b0b;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 14px 30px #31205b18; }
+    /* ===== NAVIGATION ===== */
+    header {
+      position: sticky; top: 0; z-index: 10; background: #ffffffed;
+      backdrop-filter: blur(12px); border-bottom: 1px solid #eee8ff;
+    }
+    nav { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .logo { font-size: 1.25rem; font-weight: 900; color: var(--primary); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 18px; list-style: none; }
+    .nav-links a { font-size: .92rem; font-weight: 650; transition: color .2s; }
+    .nav-links a:hover { color: var(--secondary); }
+    /* ===== HOME ===== */
+    #home { padding: 85px 0; background: radial-gradient(circle at 85% 20%, #fce7f3 0, transparent 30%), linear-gradient(135deg, #f5f0ff, #fff); }
+    .hero { display: flex; align-items: center; justify-content: space-between; gap: 45px; }
+    .hero-text { flex: 1.2; }
+    .eyebrow { display: inline-block; color: var(--primary); font-weight: 800; letter-spacing: 2px; text-transform: uppercase; font-size: .8rem; }
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.1; margin: 15px 0; }
+    .hero h1 span { color: var(--primary); }
+    .hero p { color: var(--muted); max-width: 570px; margin-bottom: 25px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+    .btn-outline:hover { background: var(--primary); color: white; }
+    .profile-wrap { flex: .8; display: flex; justify-content: center; }
+    .profile {
+     width: 300px;
+     height: 300px;
+     border: 10px solid white;
+     border-radius: 50%;
+     object-fit: cover;
+     display: block;
+     }
+
+    .profile small { display: block; font-weight: 500; opacity: .9; }
+    /* ===== ABOUT ===== */
+    .about-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 28px; align-items: start; }
+    .about-note { background: linear-gradient(145deg, #7c3aed, #a855f7); color: white; }
+    .about-note p { opacity: .92; }
+    .details { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .detail { background: #f8f6ff; padding: 14px; border-radius: 12px; }
+    .detail strong { display: block; color: var(--primary); font-size: .85rem; }
+    /* ===== SKILLS ===== */
+    #skills { background: #f0ebff; }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .skill-icon { font-size: 1.7rem; }
+    .skill-card h3 { margin: 8px 0 5px; }
+    .skill-card p { color: var(--muted); font-size: .94rem; }
+    .skill-bar { height: 8px; background: #e9e2f8; border-radius: 20px; overflow: hidden; margin-top: 14px; }
+    .skill-bar span { display: block; height: 100%; border-radius: 20px; background: linear-gradient(90deg, var(--primary), var(--secondary)); }
+    /* ===== PROJECTS ===== */
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .project-art { min-height: 125px; display: grid; place-items: center; border-radius: 12px; font-size: 2.6rem; background: linear-gradient(135deg, #ede9fe, #fce7f3); margin-bottom: 18px; }
+    .project-card p { color: var(--muted); margin: 8px 0 15px; font-size: .94rem; }
+    .tag { display: inline-block; font-size: .76rem; padding: 4px 10px; border-radius: 999px; background: #f0ebff; color: var(--primary); margin: 2px 3px 2px 0; }
+    /* ===== ACHIEVEMENTS AND GOALS ===== */
+    #achievements { background: #fff; }
+    .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .list { list-style: none; margin-top: 15px; }
+    .list li { padding: 10px 0; border-bottom: 1px solid #eee8ff; }
+    .list li:last-child { border-bottom: 0; }
+    .list li::before { content: "✦"; color: var(--secondary); font-weight: 900; margin-right: 10px; }
+    /* ===== CONTACT ===== */
+    #contact { background: linear-gradient(135deg, #f4efff, #fff1f8); }
+    .contact-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 25px; align-items: start; }
+    .contact-item { margin-top: 18px; }
+    .contact-item strong { color: var(--primary); display: block; }
+    form { display: grid; gap: 13px; }
+    input, textarea {
+      width: 100%; padding: 13px 15px; border: 1px solid #ded5f2; border-radius: 10px;
+      font: inherit; background: white; color: var(--dark);
+    }
+    input:focus, textarea:focus { outline: 2px solid #c4b5fd; border-color: var(--primary); }
+    textarea { min-height: 130px; resize: vertical; }
+    .form-note { color: var(--muted); font-size: .82rem; }
+    footer { padding: 25px 0; text-align: center; color: var(--muted); background: white; font-size: .9rem; }
+    /* ===== RESPONSIVE LAYOUT ===== */
+    @media (max-width: 800px) {
+      nav { align-items: flex-start; flex-direction: column; padding: 15px 0; }
+      .nav-links { gap: 10px 15px; }
+      .hero { flex-direction: column-reverse; text-align: center; }
+      .hero p { margin-left: auto; margin-right: auto; }
+      .hero-actions { justify-content: center; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .skills-grid, .projects-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      section { padding: 58px 0; }
+      .skills-grid, .projects-grid, .two-column, .details { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2.7rem; }
+      .nav-links { font-size: .85rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container" aria-label="Main navigation">
+      <a class="logo" href="#home">MyPortfolio.</a>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#achievements">Achievements & Goals</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home">
+      <div class="container hero">
+        <div class="hero-text">
+          <span class="eyebrow">Welcome to my portfolio</span>
+          <!-- Replace the sample name and introduction below with your own information. -->
+          <h1>Hello, I'm <span>Denmark Piscano</span></h1>
+          <h2>A Student & Future Web Developer</h2>
+          <p>I'm learning how to turn ideas into websites through creativity, curiosity, and code. Explore my skills, projects, and goals!</p>
+          <div class="hero-actions">
+            <a class="btn" href="#projects">Explore My Work</a>
+            <a class="btn btn-outline" href="#contact">Contact Me</a>
+          </div>
+        </div>       
+        <div class="profile-wrap">
+        <img
+        class="profile"
+        src="my-picture.jpg"
+        alt="My Picture"
+        </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">About <span>Me</span></h2>
+        <p class="section-intro">A little introduction about who I am, what I enjoy, and what I'm learning.</p>
+        <div class="about-grid">
+          <article class="card about-note">
+            <h3>My Story</h3>
+            <p style="margin-top:12px">Hi! I'm Denmark Piscano, a student who enjoys learning new things and exploring technology. I believe every project is a chance to improve my skills, express my ideas, and prepare for my future career.</p>
+          </article>
+          <article class="card">
+            <h3>Personal Information</h3>
+            <div class="details" style="margin-top:16px">
+              <div class="detail"><strong>Full Name</strong>Denmark Piscano</div>
+              <div class="detail"><strong>Course</strong>Act2C</div>
+              <div class="detail"><strong>School</strong>DATAMEX COLLEGE OF SAINT ADELINE</div>
+              <div class="detail"><strong>Hobbies</strong>Music, Cycling, Online Games</div>
+              <div class="detail"><strong>Location</strong>Fairview Quezon City</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <h2 class="section-title">My <span>Skills</span></h2>
+        <p class="section-intro">Here are some skills I have learned and continue to practice.</p>
+        <div class="skills-grid">
+          <article class="card skill-card"><div class="skill-icon">🌐</div><h3>HTML</h3><p>Building the structure of web pages.</p><div class="skill-bar"><span style="width:80%"></span></div></article>
+          <article class="card skill-card"><div class="skill-icon">🎨</div><h3>CSS</h3><p>Styling layouts, colors, and typography.</p><div class="skill-bar"><span style="width:70%"></span></div></article>
+          <article class="card skill-card"><div class="skill-icon">💡</div><h3>Creativity</h3><p>Thinking of fresh ideas and designs.</p><div class="skill-bar"><span style="width:85%"></span></div></article>
+          <article class="card skill-card"><div class="skill-icon">🤝</div><h3>Teamwork</h3><p>Working respectfully with other people.</p><div class="skill-bar"><span style="width:80%"></span></div></article>
+          <article class="card skill-card"><div class="skill-icon">🗣️</div><h3>Communication</h3><p>Sharing ideas clearly and listening well.</p><div class="skill-bar"><span style="width:75%"></span></div></article>
+          <article class="card skill-card"><div class="skill-icon">🧩</div><h3>Problem Solving</h3><p>Finding solutions and learning from errors.</p><div class="skill-bar"><span style="width:75%"></span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title">My <span>Projects</span></h2>
+        <p class="section-intro">A few sample projects. Replace these with the projects you have actually created.</p>
+        <div class="projects-grid">
+          <article class="card project-card"><div class="project-art">💻</div><h3>Personal Portfolio</h3><p>A website introducing me, my skills, and my goals.</p><span class="tag">HTML</span><span class="tag">CSS</span></article>
+          <article class="card project-card"><div class="project-art">📚</div><h3>Student Profile Page</h3><p>A simple profile page presenting student information and interests.</p><span class="tag">HTML</span><span class="tag">CSS</span></article>
+          <article class="card project-card"><div class="project-art">🗓️</div><h3>Study Planner</h3><p>A clean layout for organizing school tasks and study schedules.</p><span class="tag">HTML</span><span class="tag">CSS</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="achievements">
+      <div class="container">
+        <h2 class="section-title">Achievements & <span>Goals</span></h2>
+        <p class="section-intro">The milestones I am proud of and the things I hope to achieve.</p>
+        <div class="two-column">
+          <article class="card">
+            <h3>🏆 My Achievements</h3>
+            <ul class="list">
+              <li>Completed my first HTML webpage.</li>
+              <li>Learned basic CSS styling and layout.</li>
+              <li>Practiced creating a responsive website.</li>
+              <li>Add your certificates, awards, or school achievements here.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>🚀 My Future Goals</h3>
+            <ul class="list">
+              <li>Improve my HTML and CSS skills.</li>
+              <li>Learn JavaScript and other web technologies.</li>
+              <li>Create useful and creative websites.</li>
+              <li>Build a strong portfolio for my future career.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">Contact <span>Me</span></h2>
+        <p class="section-intro">Have a question or want to connect? You can reach me using the details below.</p>
+        <div class="contact-grid">
+          <article class="card">
+            <h3>Let's Connect!</h3>
+            <p style="color:var(--muted);margin-top:8px">Replace these sample links with your real contact details.</p>
+            <div class="contact-item"><strong>✉ Email</strong><a href="PiscanoDenmark20@gmail
+              .com">Piscanodenmark20@gmail
+           .com</a></div>
+            <div class="contact-item"><strong>📘 Facebook</strong><a href="https://www.facebook.com/share/19wri9B1PV/" target="_blank" rel="noopener">https://www.facebook.com/Den.Vxy216</a></div>         
+          </article>
+          <article class="card">
+            <h3>Send a Message</h3>
+            <!-- This demo form validates inputs but does not send messages without a backend. -->
+            <form onsubmit="event.preventDefault(); alert('Thank you! This is a demo form, so your message was not sent. Add a form service or backend to receive messages.');">
+              <label for="name">Your Name</label>
+              <input id="name" name="name" type="text" placeholder="Denmark Piscano" required>
+              <label for="email">Your Email</label>
+              <input id="email" name="email" type="email" placeholder="Piscanodenmark20@gmail
+              .com" required>
+              <label for="message">Your Message</label>
+              <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+              <button class="btn" type="submit">Send Message</button>
+              <p class="form-note">Note: This sample form is for the front-end design only.</p>
+            </form>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 Denmark Piscano · “Show Yourself Through Code” · Made with HTML & CSS</div>
+  </footer>
+</body>
+</html>
